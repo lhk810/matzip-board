@@ -1,3 +1,11 @@
+이 프로젝트는 react를 이용한 프론트 화면을 만들고,
+백엔드 통신을 express를 이용하여 작성하였다.
+mysql을 이용한 테이블들 역시 존재하지만,
+배포 부분이 생략되어 있기 때문에 ddl script만을 남긴다.
+
+--------------------------
+아래는 react app을 만들면서 자동생성된 README.md이다.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
