@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Item from "./Item";
+import axios from 'axios';
+import ItemInsertDialog from './ItemInsertDialog';
 
 class App extends Component {
 
@@ -9,14 +11,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //this._getMovies();
+    this._getItems();
+    //this._dbTest();
   }
 
-  _renderMovies = () => {
+  _dbTest = async() => {
+    const res = await axios.get('api/test');
+    return res.data;
+  }
+
+  _renderItems = () => {
     const matzips =  this.state.matzips.map((matzip) => {
       return <Item
-          title={matzip.title}
+          name={matzip.name}
           photo={matzip.photo}
+          location={matzip.location}
           key={matzip.id}
           description={matzip.description}
       />
@@ -24,24 +33,18 @@ class App extends Component {
     return matzips
   }
 
-  _getMovies = async () => {
-    const movies = await this._callApi()
+  _getItems = async () => {
+    const matzips = await this._dbTest()
     this.setState({
-      movies
+      matzips
     })
-  }
-
-  _callApi = () => {
-    return fetch('https://yts.mx/api/v2/list_movies.json?sort_by=rating')
-        .then(response => response.json())
-        .then(json => json.data.movies)
-        .catch(err => console.log(err))
   }
 
   render() {
     return (
         <div className= {Item ? "App" : "App--loading"}>
-          {this.state.matzips ? this._renderMovies() :  'Loading'}
+          {this.state.matzips ? this._renderItems() :  'Loading'}
+          {this.state.matzips ? <ItemInsertDialog />: ''}
         </div>
     );
   }
